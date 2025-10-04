@@ -44,7 +44,11 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>${exec.version}</version>
+                <configuration>
+                    <mainClass>cli.BenchmarkRunner</mainClass>
+                </configuration>
             </plugin>
         </plugins>
+
     </build>
 </project>
