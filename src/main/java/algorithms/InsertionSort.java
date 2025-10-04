@@ -10,35 +10,33 @@ public class InsertionSort {
         int n = arr.length;
 
         for (int i = 1; i < n; i++) {
-            boolean isSorted = true;
-
             int key = arr[i];
             tracker.incArrayAccesses(1);
 
             int j = i - 1;
 
             tracker.incComparisons();
+            tracker.incArrayAccesses(1);
             if (arr[j] <= key) {
-                tracker.incArrayAccesses(1);
                 continue;
             }
 
-            while (j >= 0 && arr[j] > key) {
+
+            while (j >= 0) {
                 tracker.incComparisons();
                 tracker.incArrayAccesses(1);
-
-                arr[j + 1] = arr[j];
-                tracker.incArrayAccesses(1);
-                tracker.incSwaps();
-                j--;
-                isSorted = false;
+                if (arr[j] > key) {
+                    arr[j + 1] = arr[j];
+                    tracker.incArrayAccesses(2);
+                    tracker.incSwaps();
+                    j--;
+                } else {
+                    break;
+                }
             }
 
             arr[j + 1] = key;
             tracker.incArrayAccesses(1);
-
-
-            if (isSorted && i == n - 1) break;
         }
     }
 }
