@@ -5,11 +5,12 @@ import metrics.PerformanceTracker;
 import java.util.Random;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Locale;   // <-- добавь
 
 public class BenchmarkRunner {
     public static void main(String[] args) {
         int[] sizes = {100, 1000, 5000, 10000};
-        Random rand = new Random();
+        Random rand = new Random(7);
 
         System.out.println("Insertion Sort Benchmark\n");
 
@@ -32,10 +33,14 @@ public class BenchmarkRunner {
                 long swp = tracker.getSwaps();
                 long acc = tracker.getArrayAccesses();
 
-                System.out.printf("n=%d | time=%.3f ms | cmp=%d | swp=%d | acc=%d%n",
+                // консоль
+                System.out.printf(Locale.US,
+                        "n=%d | time=%.3f ms | cmp=%d | swp=%d | acc=%d%n",
                         n, time, cmp, swp, acc);
 
-                writer.write(String.format("%d,%.3f,%d,%d,%d%n", n, time, cmp, swp, acc));
+                // CSV (точка как разделитель)
+                writer.write(String.format(Locale.US,
+                        "%d,%.3f,%d,%d,%d%n", n, time, cmp, swp, acc));
             }
 
             System.out.println("\n Results saved to benchmark_results.csv");
